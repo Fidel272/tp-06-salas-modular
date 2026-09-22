@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= titulo %> - Salas de Estudio
+    </title>
+    <link rel="stylesheet" href="/css/estilos.css">
+</head>
+
+<body>
+    <header class="encabezado">
+        <h1>Sistema de Reservas de Salas</h1>
+        <nav class="navegacion">
+            <a href="/">Inicio</a>
+            <a href="/reservas">Ver Reservas</a>
+            <a href="/reservas/nueva">Nueva Reserva</a>
+            <a href="/estado">Estado API</a>
+        </nav>
+    </header>
+
+    <main class="contenedor-principal">
+        <%- body %>
+    </main>
+
+    <footer class="pie-pagina">
+        <p>&copy; 2026 Sistema de Gestión de Salas de Estudio</p>
+        <p class="solicitud-id">Solicitud: <strong>
+                <%= solicitudId %>
+            </strong></p>
+    </footer>
+</body>
+
+</html>
