@@ -6,9 +6,9 @@ Aplicación web desarrollada con Node.js, Express y EJS para la gestión de rese
 ## Instalación
 1. Clonar el repositorio o descargar el código fuente.
 2. Abrir una terminal en la raíz del proyecto y ejecutar:
-   ```bash
-   npm install
-
+    ```bash
+        npm install
+    ```
 ## Ejecución
 Para iniciar el servidor en modo producción:
     npm start o npm.cmd start
@@ -44,7 +44,7 @@ GET /reservas
     ↓ express.urlencoded
     ↓ express.json
     ↓ reservasRouter (coincide prefijo /reservas)
-    ↓ middleware de router (asigna res.locals.seccion)
+    ↓ prepararAreaReservas (asigna res.locals.seccion)
     ↓ Handler GET /reservas (renderiza views/reservas/lista.ejs)
     ↓ Evento 'finish' en res
     ↓ logger de medirDuracion: [BIB-000X] GET /reservas - 200 X.XX ms
@@ -59,7 +59,7 @@ POST /reservas
     ↓ express.urlencoded (procesa req.body)
     ↓ express.json
     ↓ reservasRouter
-    ↓ middleware de router (asigna res.locals.seccion)
+    ↓ prepararAreaReservas (asigna res.locals.seccion)
     ↓ validarReserva (pasa las comprobaciones e inyecta req.reservaValidada)
     ↓ crearReserva (calcula ID, inserta en memoria y ejecuta res.redirect("/reservas"))
     ↓ Responde HTTP 302 Found (Redirección)
@@ -76,7 +76,7 @@ POST /reservas
     ↓ express.urlencoded (procesa req.body)
     ↓ express.json
     ↓ reservasRouter
-    ↓ middleware de router (asigna res.locals.seccion)
+    ↓ prepararAreaReservas (asigna res.locals.seccion)
     ↓ validarReserva (detecta error, detiene el pipeline con return res.status(400).render(...))
     ↓ Responde HTTP 400 Bad Request (renderiza vista con error y mantiene valores)
     ↓ Evento 'finish' en res
@@ -180,7 +180,7 @@ Se utiliza invocandolo dentro de un middleware cuando este termina de procesar s
 
 Porque los datos cuando se ingresan desde un formulario o en formato JSON viajan en el cuerpo (body) del paquete HTTP de forma cruda/sin procesar. Los parsers (express.urlencoded y express.json) se encargan de leer ese stream y transformarlo en el objeto req.body. Si la validación se ejecutara antes, intentaría leer campos de un objeto que aún no existe (undefined).
 
-### ¿Cuándo se utiliza next()?
+### Diferencia entre alcance global, de router y de ruta
 
 - Global (app.use): Se ejecuta obligatoriamente en todas las peticiones HTTP entrantes al servidor, sin importar la URL o el método.
 

@@ -67,7 +67,7 @@ let numeroDeSolicitud = 0;
 function identificarSolicitud(req, res, next) {
     numeroDeSolicitud++;
 
-    const idFormateado = String(contadorSolicitudes).padStart(4, "0");
+    const idFormateado = String(numeroDeSolicitud).padStart(4, "0");
     res.locals.solicitudId = `BIB-${idFormateado}`;
     next();
 }
@@ -239,15 +239,14 @@ app.get("/estado", (req, res) => {
 
 const reservasRouter = express.Router();
 
-
 // Middleware propio del Router
 
-reservasRouter.use((req, res, next) => {
+function prepararAreaReservas(req, res, next) {
     res.locals.seccion = "Reservas de salas";
-
     next();
-});
+}
 
+reservasRouter.use(prepararAreaReservas);
 
 // ========================================
 // LISTADO
